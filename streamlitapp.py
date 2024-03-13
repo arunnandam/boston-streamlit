@@ -14,28 +14,28 @@ def main():
     st.title("Boston House Pricing App")
     html_temp = """
     <div style="background:#025246 ;padding:10px">
-    <h2 style="color:white;text-align:center;">Income Prediction App </h2>
+    <h2 style="color:white;text-align:center;">Boston Housing Price Prediction </h2>
     </div>
     """
     st.markdown(html_temp, unsafe_allow_html = True)
     
-    crim = st.text_input("CRIM",0) 
-    zn = st.text_input("ZN",0) 
-    indus = st.text_input("INDUS",0) 
-    chas = st.text_input("CHAS",0) 
-    nox = st.text_input("NOX",0) 
-    rm = st.text_input("RM",0) 
-    age = st.text_input("AGE",0) 
-    dis = st.text_input("DIS",0) 
-    rad = st.text_input("RAD",0) 
-    tax = st.text_input("TAX",0) 
-    ptratio = st.text_input("PTRATIO",0) 
-    b = st.text_input("B",0)
-    lstat = st.text_input("LSTAT",0) 
+    crim = st.text_input("CRIM - per capita crime rate by town") 
+    zn = st.text_input("ZN - proportion of residential land zoned for lots over 25,000 sq.ft") 
+    indus = st.text_input("INDUS - proportion of non-retail business acres per town") 
+    chas = st.text_input("CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)") 
+    nox = st.text_input("NOX - nitric oxides concentration (parts per 10 million)") 
+    rm = st.text_input("RM - average number of rooms per dwelling") 
+    age = st.text_input("AGE - proportion of owner-occupied units built prior to 1940") 
+    dis = st.text_input("DIS - weighted distances to five Boston employment centres") 
+    rad = st.text_input("RAD - index of accessibility to radial highways") 
+    tax = st.text_input("TAX - full-value property-tax rate per $10,000") 
+    ptratio = st.text_input("PTRATIO - pupil-teacher ratio by town") 
+    b = st.text_input("B - 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town")
+    lstat = st.text_input("LSTAT - per lower status of the population") 
     
     if st.button("Predict"): 
         #features = [[CRIM, ZN, INDUS, CHAS, NOX, RM, AGE, DIS, RAD, TAX,PTRATIO, B, LSTAT]]
-        data = {'crim': int(crim), 'zn': int(zn), 'indus': int(indus), 'chas': int(chas), 'nox': int(nox), 'rm': int(rm), 'age': int(age), 'dis': int(dis), 'rad': int(rad), 'tax': int(tax), 'ptratio': int(ptratio), 'b': int(b), 'stat':int(lstat)}
+        data = {'crim': float(crim), 'zn': float(zn), 'indus': float(indus), 'chas': float(chas), 'nox': float(nox), 'rm': float(rm), 'age': float(age), 'dis': float(dis), 'rad': float(rad), 'tax': float(tax), 'ptratio': float(ptratio), 'b': float(b), 'stat':float(lstat)}
         print(data)
         df=pd.DataFrame([list(data.values())])
         # category_col =['workclass', 'education', 'maritalstatus', 'occupation', 'relationship', 'race', 'gender', 'nativecountry']
@@ -54,7 +54,7 @@ def main():
         prediction = model.predict(df1)
     
         output = int(prediction[0])
-        st.success('Price is {}'.format(output))
+        st.success('Median value of owner-occupied homes is {:.2f}'.format(output*1000))
       
 if __name__=='__main__': 
     main() 
